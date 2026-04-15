@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  .dark body { background-color: #080C14; color: #E2E8F0; }
+  .dark {
+    --bg: #080C14; --surface: #0D1117; --card: #111827;
+    --border: #1F2937; --muted: #1E293B; --hover: #161f2e;
+    --text: #E2E8F0; --text-sub: #94A3B8; --text-dim: #475569;
+    --shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+  html:not(.dark) body { background-color: #F1F5F9; color: #0F172A; }
+  html:not(.dark) {
+    --bg: #F1F5F9; --surface: #FFFFFF; --card: #FFFFFF;
+    --border: #E2E8F0; --muted: #F8FAFC; --hover: #F1F5F9;
+    --text: #0F172A; --text-sub: #64748B; --text-dim: #94A3B8;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #6366F1; }
+  ::selection { background: rgba(99,102,241,0.2); }
+}
+
+@layer components {
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card:hover { border-color: rgba(99,102,241,0.2); }
+
+  .input-base {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+  }
+  .input-base::placeholder { color: var(--text-dim); }
+  .input-base:focus {
+    border-color: #6366F1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+  }
+
+  .nav-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 10px; border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+    color: var(--text-sub);
+    transition: all 0.15s ease;
+    cursor: pointer; text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .nav-link:hover { background: var(--hover); color: var(--text); }
+  .nav-link.active {
+    background: rgba(99,102,241,0.08);
+    color: #6366F1;
+    border-color: rgba(99,102,241,0.15);
+  }
+  .dark .nav-link.active { color: #818CF8; }
+
+  .skeleton {
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--muted) 25%, var(--hover) 50%, var(--muted) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+}
+
+@layer utilities {
+  .text-primary { color: var(--text); }
+  .text-secondary { color: var(--text-sub); }
+  .text-tertiary { color: var(--text-dim); }
+  .bg-surface { background: var(--surface); }
+  .bg-card { background: var(--card); }
+  .bg-muted { background: var(--muted); }
+  .border-base { border-color: var(--border); }
+  .animate-fade-in { animation: fadeIn 0.3s ease forwards; }
+  .animate-slide-up { animation: slideUp 0.35s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .animate-shimmer { animation: shimmer 2s linear infinite; }
+  .animate-pulse-sm { animation: pulseSm 2s ease-in-out infinite; }
+}
+
+@keyframes fadeIn   { from { opacity:0 } to { opacity:1 } }
+@keyframes slideUp  { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
+@keyframes shimmer  { from { background-position:-200% 0 } to { background-position:200% 0 } }
+@keyframes pulseSm  { 0%,100% { opacity:1 } 50% { opacity:0.35 } }
